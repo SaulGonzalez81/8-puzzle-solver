@@ -30,4 +30,4 @@ def prog_input():
         
         return [[userList1],[userList2],[userList3]]
     elif val == 1:
-        return [[1,3,6],[5,0,7],[4,8,2]]
+        return [[1,6,7],[5,0,3],[4,8,2]]

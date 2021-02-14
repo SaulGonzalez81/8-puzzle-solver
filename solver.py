@@ -39,13 +39,24 @@ def f_n(node,option):
 
 
 #We use the f_n value stored in each node to determine their order in queue.
-def queuing_function(nodes,childNodes,queuingFunctionOption):
+def queuing_function(nodes,childNodes,queuingFunctionOption,dupes):
+    for i,val in enumerate(dupes):
+        for j,val2 in enumerate(childNodes):
+            if val.problem == val2.problem:
+                childNodes.remove(val2)
+
     for i,child in enumerate(childNodes):
         child.fN = f_n(copy.deepcopy(child),queuingFunctionOption)
+    
+    for i,val in enumerate(childNodes):
+        dupes.append(val)
+
     if queuingFunctionOption != 1 :
         childNodes = sorted(childNodes,key=fN_getter)
+    
     for i,val in enumerate(childNodes):
         nodes.append(val)    
+    
     return nodes
 
 
@@ -92,14 +103,16 @@ def expand(node):
         childNodes.append(cnode4)
     return childNodes
 
-
 #This is where we will perform our search using the algorithm that the user desires 
 def general_search(problem,queuingFunctionOption):
     
     #We first create a queue to hold our nodes
     nodes = []
+    nodes_dups = []
     nodes.append(Node(problem,0,0))
-    
+    nodes_dups.append(Node(problem,0,0))
+    global maxQueueSize
+    maxQueueSize = 1
     #We want to continue this while loop until the length of the queue is equal to zero 
     while len(nodes) > 0:
         #We are looking at the front of the queue by popping left
@@ -110,8 +123,10 @@ def general_search(problem,queuingFunctionOption):
             return node
         
         #We didn't reach the goal state, so now we call on the queuing_fucntion to push the next possible states into the queue
-        nodes = queuing_function(nodes,expand(node),queuingFunctionOption)
-    
+        nodes = queuing_function(nodes,expand(node),queuingFunctionOption,nodes_dups)
+        if len(nodes) >= maxQueueSize:
+            maxQueueSize = len(nodes)
+
     #If we go through the entire queue without reaching the goal state, we can call this a failure
     return "failure"
 
@@ -130,7 +145,10 @@ def main_function():
     result = general_search(problem,option)
     print('\n')
     if result != "failure":
+        print("Max queue size: ", maxQueueSize)
         print("Depth of Solution: ", result.gN)
         for i,row in enumerate(result.problem):
             print(*row)
+    else:
+        print("failure")
 main_function()
