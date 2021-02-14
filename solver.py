@@ -164,9 +164,9 @@ def main_function():
     result = general_search(problem,option)
     print('\n')
     if result != "failure":
-        print("Nodes expanded: ", totalExpandedNodes)
-        print("Max queue size: ", maxQueueSize)
-        print("Depth of Solution: ", result.gN)
+        print("The search expanded a total of", totalExpandedNodes, "nodes")
+        print("The maximum number of nodes in the queue at any one time was", maxQueueSize)
+        print("The depth of goal state was", result.gN, "\n")
         for i,row in enumerate(result.problem):
             print(*row)
     else:

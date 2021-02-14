@@ -15,17 +15,17 @@ def prog_input():
     if val == 2:
         print("Enter your puzzle, use a zero to represent the blank\n")
         
-        userString1 = input("Enter the first row, use space or tabs between numbers: ")
+        userString1 = input("Enter the first row, use space between numbers: ")
         userList1 = list(userString1.split(" "))
         userList1 = list(map(int,userList1))
         print("\n")
 
-        userString2 = input("Enter the second row, use space or tabs between numbers: ")
+        userString2 = input("Enter the second row, use space between numbers: ")
         userList2 = list(userString2.split(" "))
         userList2 = list(map(int,userList2))
         print("\n")
         
-        userString3 = input("Enter the third row, use space or tabs between numbers: ")
+        userString3 = input("Enter the third row, use space between numbers: ")
         userList3 = list(userString3.split(" "))
         userList3 = list(map(int,userList3))
         print("\n")
