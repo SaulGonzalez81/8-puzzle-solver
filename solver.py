@@ -1,3 +1,4 @@
+import time
 import copy
 from node import Node, fN_getter, gN_getter
 from helper_functions import index_loc, prog_input 
@@ -159,11 +160,18 @@ def main_function():
     option = int(input("Enter your choice of algorithm\n1. Uniform Cost Search.\n2. A* with the Misplaced Tile heuristic.\n3. A* with the Manhattan distance heuristic.\n"))
     while option != 1 and option != 2 and option != 3:
         option = int(input("Enter your choice of alogirthm\n1. Uniform Cost Search.\n2. A* with the Misplaced Tile heuristic.\n3. A* with the Manhattan distance heuristic.\n"))
-    
-    #This is a little different from the psuedocode in the book, however I find this way to be a little easier to follow given our input structure.
-    result = general_search(problem,option)
     print('\n')
+
+    #This is a little different from the psuedocode in the book, however I find this general search to be a little easier to follow given my input structure.
+    tStart = time.time()
+    result = general_search(problem,option)
+    tEnd = time.time()
+
+    #This totalTime calculates how much time has passed since we started the general_search.
+    totalTime = tEnd - tStart
+    
     if result != "failure":
+        print("Time Elapsed", totalTime, "seconds")
         print("The search expanded a total of", totalExpandedNodes, "nodes")
         print("The maximum number of nodes in the queue at any one time was", maxQueueSize)
         print("The depth of goal state was", result.gN, "\n")
