@@ -39,7 +39,7 @@ def f_n(node,option):
         return node.gN + manhattan_distance_heuristic(copy.deepcopy(node)) 
 
 
-#We use the f_n value stored in each node to determine their order in queue.
+#We use the f_n value stored in each node to determine their order in queue. We sort the queue when we do Misplaced tiles and Manhattan distance and break ties that could occur
 def queuing_function(nodes,childNodes,queuingFunctionOption,dupes):
     
     for i,val in enumerate(dupes):
@@ -56,6 +56,7 @@ def queuing_function(nodes,childNodes,queuingFunctionOption,dupes):
     for i,val in enumerate(childNodes):
         nodes.append(val) 
     
+    #Sort and break ties if they occur
     if queuingFunctionOption != 1 :
         nodes = sorted(nodes,key= fN_getter)
         tieNode = nodes.pop(0)
