@@ -50,12 +50,12 @@ def queuing_function(nodes,childNodes,queuingFunctionOption,dupes):
     
     for i,val in enumerate(childNodes):
         dupes.append(val)
-
-    if queuingFunctionOption != 1 :
-        childNodes = sorted(childNodes,key=fN_getter)
     
     for i,val in enumerate(childNodes):
-        nodes.append(val)    
+        nodes.append(val) 
+    
+    if queuingFunctionOption != 1 :
+        nodes = sorted(nodes,key=fN_getter)   
     
     return nodes
 
@@ -106,13 +106,18 @@ def expand(node):
 #This is where we will perform our search using the algorithm that the user desires 
 def general_search(problem,queuingFunctionOption):
     
-    #We first create a queue to hold our nodes
+    #We first create a queue to hold our nodes & another queue to hold our duplicate nodes
     nodes = []
     nodes_dups = []
     nodes.append(Node(problem,0,0))
     nodes_dups.append(Node(problem,0,0))
+
+    #These variables are going to be used to keep track of the maximum queue size and the amount of nodes we have expanded.
     global maxQueueSize
     maxQueueSize = 1
+    global totalExpandedNodes
+    totalExpandedNodes = 0
+
     #We want to continue this while loop until the length of the queue is equal to zero 
     while len(nodes) > 0:
         #We are looking at the front of the queue by popping left
@@ -124,6 +129,7 @@ def general_search(problem,queuingFunctionOption):
         
         #We didn't reach the goal state, so now we call on the queuing_fucntion to push the next possible states into the queue
         nodes = queuing_function(nodes,expand(node),queuingFunctionOption,nodes_dups)
+        totalExpandedNodes = totalExpandedNodes + 1
         if len(nodes) >= maxQueueSize:
             maxQueueSize = len(nodes)
 
@@ -145,6 +151,7 @@ def main_function():
     result = general_search(problem,option)
     print('\n')
     if result != "failure":
+        print("Nodes expanded: ", totalExpandedNodes)
         print("Max queue size: ", maxQueueSize)
         print("Depth of Solution: ", result.gN)
         for i,row in enumerate(result.problem):
