@@ -1,10 +1,10 @@
+
 #A simple function to find the coordinates of an element our problem matrix
 def index_loc(element,matrix):
   for i in range(len(matrix)):
     for j in range(len(matrix[i])):
       if matrix[i][j] == element:
         return i,j
-
 
 #Input interface with the user. 
 def prog_input():
@@ -30,4 +30,4 @@ def prog_input():
         
         return [[userList1],[userList2],[userList3]]
     elif val == 1:
-        return [[1,3,6],[5,0,7],[4,8,2]]
+        return [[1,2,3],[4,5,6],[7,8,0]]

@@ -6,6 +6,10 @@ class Node:
         self.fN = fN
 
 
-#Getter function for fN in a node. THis is used for the queuing_function
+#Getter function for fN in a node. This is used for the queuing_function
 def fN_getter(Node):
     return Node.fN
+
+#Getter function for gN in a node. This is used to break ties
+def gN_getter(Node):
+    return Node.gN

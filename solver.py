@@ -1,5 +1,5 @@
 import copy
-from node import Node, fN_getter
+from node import Node, fN_getter, gN_getter
 from helper_functions import index_loc, prog_input 
 
 #This is a global goal state that we will be used to check if a search has reached the goal state
@@ -24,7 +24,8 @@ def manhattan_distance_heuristic(node):
             if val != 0:
                 problemIndex = index_loc(val,node.problem)
                 goalIndex = index_loc(val,goalState)
-                sumDist = sumDist + (abs(problemIndex[0]-goalIndex[0]) + abs(problemIndex[1]-goalIndex[1]))
+                manDist = (abs(problemIndex[0]-goalIndex[0]) + abs(problemIndex[1]-goalIndex[1]))
+                sumDist = sumDist + manDist
     return sumDist
 
 
@@ -40,6 +41,7 @@ def f_n(node,option):
 
 #We use the f_n value stored in each node to determine their order in queue.
 def queuing_function(nodes,childNodes,queuingFunctionOption,dupes):
+    
     for i,val in enumerate(dupes):
         for j,val2 in enumerate(childNodes):
             if val.problem == val2.problem:
@@ -47,7 +49,7 @@ def queuing_function(nodes,childNodes,queuingFunctionOption,dupes):
 
     for i,child in enumerate(childNodes):
         child.fN = f_n(copy.deepcopy(child),queuingFunctionOption)
-    
+
     for i,val in enumerate(childNodes):
         dupes.append(val)
     
@@ -55,9 +57,19 @@ def queuing_function(nodes,childNodes,queuingFunctionOption,dupes):
         nodes.append(val) 
     
     if queuingFunctionOption != 1 :
-        nodes = sorted(nodes,key=fN_getter)   
-    
-    return nodes
+        nodes = sorted(nodes,key= fN_getter)
+        tieNode = nodes.pop(0)
+        tieNodes = [tieNode]
+        for i,val in enumerate(nodes):
+            if val.fN == tieNode.fN:
+                tieNodes.append(val)
+                nodes.remove(val)
+        tieNodes = sorted(tieNodes,key= gN_getter)
+        for i, val in enumerate(nodes):
+            tieNodes.append(val)
+        return tieNodes
+    else:
+        return nodes
 
 
 #We create child nodes from our given node based on the legal operators that we can use to change the board state
@@ -110,7 +122,7 @@ def general_search(problem,queuingFunctionOption):
     nodes = []
     nodes_dups = []
     nodes.append(Node(problem,0,0))
-    nodes_dups.append(Node(problem,0,0))
+    #nodes_dups.append(Node(problem,0,0))
 
     #These variables are going to be used to keep track of the maximum queue size and the amount of nodes we have expanded.
     global maxQueueSize
