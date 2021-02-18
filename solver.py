@@ -139,11 +139,26 @@ def general_search(problem,queuingFunctionOption):
 
         #If the node at the front of the queue is the goal state, then we are finished and we can leave
         if node.problem == goalState:
+            print("We reached the goal state!\n")
+            for i, row in enumerate(node.problem):
+                print(*row)
+            print("\n")
             return node
-        
+
         #We didn't reach the goal state, so now we call on the queuing_fucntion to push the next possible states into the queue
         nodes = queuing_function(nodes,expand(node),queuingFunctionOption,nodes_dups)
+        
+        #Print out of the node we are expanding
+        hN = node.fN - node.gN
+        print("The best state to expand with a g(n) =",node.gN, "and h(n) =", hN, "is..\n" )
+        for i,row in enumerate(node.problem):
+            print(*row) 
+        print('\n')
+        
+        #Keeps track of how many nodes we hae expanded
         totalExpandedNodes = totalExpandedNodes + 1
+        
+        #Keeps track of the maxQueueSize
         if len(nodes) >= maxQueueSize:
             maxQueueSize = len(nodes)
 
@@ -175,8 +190,6 @@ def main_function():
         print("The search expanded a total of", totalExpandedNodes, "nodes")
         print("The maximum number of nodes in the queue at any one time was", maxQueueSize)
         print("The depth of goal state was", result.gN, "\n")
-        for i,row in enumerate(result.problem):
-            print(*row)
     else:
         print("failure")
 main_function()

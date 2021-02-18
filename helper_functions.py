@@ -10,18 +10,38 @@ def default_puzzle_selector():
   option = int(input("What level of difficultly do you want the puzzle to be (1-5): "))
   
   if option == 1:
+    print("Easy Puzzle:\n")
+    for i,row in enumerate(puzzle_d2):
+      print(*row)
+    print("\n")
     return puzzle_d2
 
   if option == 2:
+    print("Okay Puzzle:\n")
+    for i,row in enumerate(puzzle_d8):
+      print(*row)
+    print("\n")
     return puzzle_d8
   
   if option == 3:
+    print("Kind of a Difficult Puzzle:\n")
+    for i,row in enumerate(puzzle_d12):
+      print(*row)
+    print("\n")
     return puzzle_d12
   
   if option == 4:
+    print("Difficult Puzzle:\n")
+    for i,row in enumerate(puzzle_d16):
+      print(*row)
+    print("\n")
     return puzzle_d16
   
-  if option == 5:  
+  if option == 5:
+    print("Really Difficult Puzzle:\n")
+    for i,row in enumerate(puzzle_d24):
+      print(*row)
+    print("\n")  
     return puzzle_d24
 
 
@@ -34,7 +54,7 @@ def index_loc(element,matrix):
 
 #Input interface with the user. 
 def prog_input():
-    print("Welcome to Armie's 8-puzzle solver!")
+    print("Welcome to Saul's 8-puzzle solver!")
     val = int(input("Type \"1\" to use a default puzzle, or \"2\" to enter your own puzzle: "))
     while val != 1 and val != 2:
         val = int(input("Type \"1\" to use a default puzzle, or \"2\" to enter your own puzzle: "))
