@@ -2,7 +2,7 @@
 puzzle_d2 = [[1, 2, 3],[4, 5, 6],[0, 7, 8]]
 puzzle_d8 = [[1, 3, 6],[5, 0, 2],[4, 7, 8]]
 puzzle_d12 = [[1, 3, 6],[5, 0, 7],[4, 8, 2]]
-puzzle_d16 = [[7, 1, 2],[4, 8, 5],[6, 3, 0]]
+puzzle_d20 = [[7, 1, 2],[4, 8, 5],[6, 3, 0]]
 puzzle_d24 = [[0, 7, 2],[4, 6, 1],[3, 5, 8]]
 
 #Asks the user for which default puzzle they wish to solve
@@ -32,10 +32,10 @@ def default_puzzle_selector():
   
   if option == 4:
     print("Difficult Puzzle:\n")
-    for i,row in enumerate(puzzle_d16):
+    for i,row in enumerate(puzzle_d20):
       print(*row)
     print("\n")
-    return puzzle_d16
+    return puzzle_d20
   
   if option == 5:
     print("Really Difficult Puzzle:\n")
